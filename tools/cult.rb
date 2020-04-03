@@ -1,8 +1,9 @@
 require 'pry'
+require_relative "follower.rb"
 
 class Cult
 
-    attr_accessor :name, :founding_year, :slogan, :cult_population
+    attr_accessor :name, :founding_year, :slogan, :cult_population, :location
     attr_reader :followers
 
     @@all = []
@@ -42,6 +43,7 @@ class Cult
 
     def average_age
         # returns avg age of followers list
+
         average = 0
         @followers.each do |follower|
             average += follower.age 
@@ -55,9 +57,18 @@ class Cult
     end
 
     def self.least_popular
-        least_popular = all.first
+        least_popular = @@all.first
         @@all.each { | cult | least_popular = cult if cult.cult_population < least_popular.cult_population }
         least_popular
+    end
+
+    def self.most_common_location
+        binding.pry
+        cult_locations = []
+        @@all.each { |cult| cult_locations << cult.location }
+        cult_locations.max_by { |location| cult_locations.count(location) }
+
+        #Solution seems inefficient ask about better solutions
     end
 
 end
