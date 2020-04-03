@@ -40,4 +40,24 @@ class Cult
         @@all.select { | cult | cult.founding_year == year}
     end
 
+    def average_age
+        # returns avg age of followers list
+        average = 0
+        @followers.each do |follower|
+            average += follower.age 
+        end
+        average /= followers.length.to_f
+    end
+
+    def my_followers_mottos
+        # prints all the mottos for the cult followers
+        @followers.collect { | follower | puts follower.motto }
+    end
+
+    def self.least_popular
+        least_popular = all.first
+        @@all.each { | cult | least_popular = cult if cult.cult_population < least_popular.cult_population }
+        least_popular
+    end
+
 end
